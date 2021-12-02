@@ -37,6 +37,7 @@ unsigned long sendDataPrevMillis = 0;
 
 #define SS_PIN 4  //D2
 #define RST_PIN 5 //D1
+#define buzzer 10 //SD3
 MFRC522 mfrc522(SS_PIN, RST_PIN); 
 
 char input[12];
@@ -56,7 +57,7 @@ int out = 0;
 
 void setup()
 {
-
+  pinMode(buzzer, OUTPUT);
   Serial.begin(115200);
   SPI.begin();      // Initiate  SPI bus
   mfrc522.PCD_Init();
@@ -123,6 +124,7 @@ void loop()
       sendDataPrevMillis = millis();  
       if (content.substring(1) == "50 EE 77 2C")
       {
+        buzz();
         Serial.print("Milk Added");
         Serial.printf(Firebase.setString(fbdo, "/shop/itemadded", "Milk") ? "ok" : fbdo.errorReason().c_str());
         Serial.print("Price(Rs):24.00 ");
@@ -138,6 +140,7 @@ void loop()
     
       else if (content.substring(1) == "F0 DD 0D 19")
       {
+        buzz();
         Serial.print("Pen Added");      
         Serial.printf(Firebase.setString(fbdo, "/shop/itemadded", "Pen") ? "ok" : fbdo.errorReason().c_str());
         Serial.println("Price(Rs):10.00 ");
@@ -153,6 +156,7 @@ void loop()
     
       else if (content.substring(1) == "15 DC EC 2A")
       {
+        buzz();
         Serial.print("Dark Fantasy Added");            
         Serial.printf(Firebase.setString(fbdo, "/shop/itemadded", "Dark Fantasy") ? "ok" : fbdo.errorReason().c_str());
         Serial.println("Price(Rs):50.00 ");
@@ -172,4 +176,11 @@ void loop()
         Serial.printf(Firebase.setFloat(fbdo, "/shop/itemvalue", 00.00) ?  "ok" : fbdo.errorReason().c_str());
       }    
   }
+}
+
+void buzz(){
+  digitalWrite(buzzer, HIGH);
+  delay(200);
+  digitalWrite(buzzer, LOW);
+  delay(200);
 }
