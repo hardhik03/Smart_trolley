@@ -128,7 +128,7 @@ void loop()
         Serial.print("Milk Added");
         Serial.printf(Firebase.setString(fbdo, "/shop/itemadded", "Milk") ? "ok" : fbdo.errorReason().c_str());
         Serial.print("Price(Rs):24.00 ");
-        Serial.printf(Firebase.setFloat(fbdo, "/shop/itemvalue", 24.00) ? "ok" : fbdo.errorReason().c_str());
+        Serial.printf(Firebase.setString(fbdo, "/shop/itemvalue", "24.00") ? "ok" : fbdo.errorReason().c_str());
         p1++;
         delay(1000);
         total = total + 24.00;
@@ -144,7 +144,7 @@ void loop()
         Serial.print("Pen Added");      
         Serial.printf(Firebase.setString(fbdo, "/shop/itemadded", "Pen") ? "ok" : fbdo.errorReason().c_str());
         Serial.println("Price(Rs):10.00 ");
-        Serial.printf(Firebase.setFloat(fbdo, "/shop/itemvalue", 10.00) ? "ok" : fbdo.errorReason().c_str());
+        Serial.printf(Firebase.setString(fbdo, "/shop/itemvalue", "10.00") ? "ok" : fbdo.errorReason().c_str());
         p1++;
         delay(1000);
         total = total + 10.00;
@@ -158,12 +158,12 @@ void loop()
       {
         buzz();
         Serial.print("Dark Fantasy Added");            
-        Serial.printf(Firebase.setString(fbdo, "/shop/itemadded", "Dark Fantasy") ? "ok" : fbdo.errorReason().c_str());
+        Serial.printf(Firebase.setString(fbdo, "/shop/itemadded", "Maggi") ? "ok" : fbdo.errorReason().c_str());
         Serial.println("Price(Rs):50.00 ");
-        Serial.printf(Firebase.setFloat(fbdo, "/shop/itemvalue", 50.00) ? "ok" : fbdo.errorReason().c_str());
+        Serial.printf(Firebase.setString(fbdo, "/shop/itemvalue", "48.00") ? "ok" : fbdo.errorReason().c_str());
         p1++;
         delay(1000);
-        total = total + 50.00;
+        total = total + 48.00;
         Serial.print("Total = ");
         Serial.println(total);
         Serial.printf(Firebase.setFloat(fbdo, "/shop/total", total) ?  "ok" : fbdo.errorReason().c_str());
@@ -176,11 +176,4 @@ void loop()
         Serial.printf(Firebase.setFloat(fbdo, "/shop/itemvalue", 00.00) ?  "ok" : fbdo.errorReason().c_str());
       }    
   }
-}
-
-void buzz(){
-  digitalWrite(buzzer, HIGH);
-  delay(200);
-  digitalWrite(buzzer, LOW);
-  delay(200);
 }
